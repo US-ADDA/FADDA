@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="ParteComun:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/ParteComun_jar</output-path>
-    <root id="archive" name="ParteComun.jar">
-      <element id="module-output" name="ParteComun" />
-      <element id="module-source" name="ParteComun" />
-    </root>
-  </artifact>
-</component>
