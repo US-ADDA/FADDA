@@ -7,6 +7,7 @@ module partecomun {
     exports us.lsi.common.views;
 	exports us.lsi.common.tuples;
 	exports us.lsi.common.tri;
+	exports us.lsi.iterables;
 
 	requires commons.math3;
 	requires org.antlr.antlr4.runtime;
