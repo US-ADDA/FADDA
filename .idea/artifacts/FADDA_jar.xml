@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="FADDA:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/FADDA_jar</output-path>
-    <root id="archive" name="FADDA.jar">
-      <element id="module-output" name="FADDA" />
-      <element id="module-source" name="FADDA" />
-    </root>
-  </artifact>
-</component>

@@ -13,7 +13,4 @@ module partecomun {
 	exports main.java.common.collections;
 	exports main.java.iterables.iterator;
 	exports main.java.iterables.seq;
-
-	requires commons.math3;
-	requires org.antlr.antlr4.runtime;
 }
