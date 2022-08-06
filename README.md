@@ -1,5 +1,7 @@
+[![](https://jitpack.io/v/alesanfe/FADDA.svg)](https://jitpack.io/#alesanfe/FADDA)
+
 # FADDA
-Funciones de ADDA, copiado del ParteComún de MIguel Toro, pero ahora funciona con Java 11.
+Funciones de ADDA para poder hacer todas las prácticas de 21-22.
 
 ## NO UTILIZAR CON APIS (NO FUFA BIEN).
 
