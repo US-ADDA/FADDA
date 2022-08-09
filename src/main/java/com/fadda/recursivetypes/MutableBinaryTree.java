@@ -2,59 +2,52 @@ package com.fadda.recursivetypes;
 
 public interface MutableBinaryTree<E> extends BinaryTree<E> {
 
+	/**
+	 * @post isEmpty()
+	 * @return Construye un �rbol vac�o
+	 */
+	public static <E> MutableBinaryTree<E> empty() {
+		return BinaryTreeImpl.empty();
+	}
 
-    /**
-     * @return Construye un �rbol vac�o
-     * @post isEmpty()
-     */
+	/**
+	 * @param label Una etiqueta
+	 * @post isLeaf()
+	 * @return Construye un �rbol hoja
+	 */
+	public static <E> MutableBinaryTree<E> leaf(E label) {
+		return BinaryTreeImpl.leaf(label);
+	}
 
-    static <E> MutableBinaryTree<E> empty() {
-        return BinaryTreeImpl.empty();
-    }
+	/**
+	 * @param label Una etiqueta
+	 * @param left Un arbol
+	 * @param right Un arbol
+	 * @post isBinary()
+	 * @return Construye un �rbol binario
+	 */
+	public static <E> MutableBinaryTree<E> binary(E label, MutableBinaryTree<E> left, MutableBinaryTree<E> right) {
+		return BinaryTreeImpl.binary(label, left, right);
+	}
 
+	public static <E> MutableBinaryTree<E> mutable(BinaryTree<E> tree) {
+		return (MutableBinaryTree<E>) tree;
+	}
 
-    /**
-     * @param label Una etiqueta
-     * @return Construye un �rbol hoja
-     * @post isLeaf()
-     */
-    static <E> MutableBinaryTree<E> leaf(E label) {
-        return BinaryTreeImpl.leaf(label);
-    }
+	void setLabel(E label);
 
+	void setLeft(BinaryTree<E> left);
 
-    /**
-     * @param label Una etiqueta
-     * @param left  Un arbol
-     *              --Commented out by Inspect --Commented out by Inspection (05/08 /2022 14:06):ion (05/08/2022 14:06): * @param right Un arbol
-     * @return Construye un �rbol binario
-     * @post isBinary()
-     */
-    static <E> MutableBinaryTree<E> binary(E label, MutableBinaryTree<E> left, MutableBinaryTree<E> right) {
-        return BinaryTreeImpl.binary(label, left, right);
-    }
+	void setRight(BinaryTree<E> right);
 
+	void setFather(BinaryTree<E> father);
 
-    static <E> MutableBinaryTree<E> mutable(BinaryTree<E> tree) {
-        return (MutableBinaryTree<E>) tree;
-    }
-
-
-    void setLabel(E label);
-
-    void setLeft(BinaryTree<E> left);
-
-    void setRight(BinaryTree<E> right);
-
-    void setFather(BinaryTree<E> father);
-
-    /**
-     * @param nTree Un �rbol binario
-     * @return Devuelve nTree
-     * @post this pasa start ser un arbol raiz si no lo era antes. nTree pasa start ocupar el lugar de this. El padre de nTree
-     * <p>
-     * es el antiguo padre de this
-     */
-    BinaryTree<E> changeFor(BinaryTree<E> nTree);
+	/**
+	 * @post this pasa a ser un arbol raiz si no lo era antes. nTree pasa a ocupar el lugar de this. El padre de nTree
+	 * es el antiguo padre de this
+	 * @param nTree Un �rbol binario
+	 * @return  Devuelve nTree
+	 */
+	BinaryTree<E> changeFor(BinaryTree<E> nTree);
 
 }

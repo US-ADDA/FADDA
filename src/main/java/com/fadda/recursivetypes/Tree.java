@@ -1,8 +1,6 @@
 package com.fadda.recursivetypes;
 
 
-import com.fadda.common.views.ViewL;
-
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -10,180 +8,169 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public interface Tree<E> extends Iterable<Tree<E>> {
+import com.fadda.common.views.ViewL;
 
-    Tree<Object> empty = new TreeImpl<>();
+public interface Tree<E> extends Iterable<Tree<E>>{
 
-    static <R> Tree<R> empty() {
-        return TreeImpl.empty();
-    }
+public static Tree<Object> empty = new TreeImpl<Object>();
 
-    static <R> Tree<R> leaf(R label) {
-        return TreeImpl.leaf(label);
-    }
+	public enum TreeType{Empty,Leaf,Nary}
 
-    static <R> Tree<R> nary(R label, List<Tree<R>> elements) {
-        List<TreeImpl<R>> ls = elements.stream().map(x -> (TreeImpl<R>) x).collect(Collectors.toList());
+	public static <R> Tree<R> empty() {
+		return TreeImpl.empty();
+	}
 
-        return TreeImpl.nary(label, ls);
-    }
+	public static <R> Tree<R> leaf(R label) {
+		return TreeImpl.leaf(label);
+	}
 
-    @SafeVarargs
-    static <R> Tree<R> nary(R label, Tree<R>... elements) {
+	public static <R> Tree<R> nary(R label, List<Tree<R>> elements) {
+		List<TreeImpl<R>> ls = elements.stream().map(x->(TreeImpl<R>)x).collect(Collectors.toList());
+		return TreeImpl.nary(label,ls);
+	}
 
-        List<TreeImpl<R>> ls = Arrays.stream(elements).map(x -> (TreeImpl<R>) x).collect(Collectors.toList());
-
-
-        return TreeImpl.nary(label, ls);
-
-
-    }
-
-    static <R> Tree<R> toTree(BinaryTree<R> t) {
-        return TreeImpl.toTree(t);
-    }
-
-    static Tree<String> parse(String s) {
-        return TreeImpl.parse(s);
-    }
-
-    static <R> Tree<R> parse(String s, Function<String, R> f) {
-        return TreeImpl.parse(s, f);
-    }
-
-    /**
-     * @return El tipo del �rbol
-     */
-    TreeType getType();
-
-    /**
-     * @return Verdadero si el �rbol es vacio.
-     */
-    boolean isEmpty();
+	@SafeVarargs
+	public static <R> Tree<R> nary(R label, Tree<R>... elements) {
+		List<TreeImpl<R>> ls = Arrays.stream(elements).map(x->(TreeImpl<R>)x).collect(Collectors.toList());
+		return TreeImpl.nary(label,ls);
+	}
 
 
-    /**
-     * @return Verdadero si el �rbol es hoja.
-     * --Commented  out by Inspection STOP (05/08/2022 14:06)
-     */
-    boolean isLeaf();
+	public static <R> Tree<R> toTree(BinaryTree<R> t){
+		return TreeImpl.toTree(t);
+	}
 
-    /**
-     * @param i Un entero
-     * @return Si this es el hijo i de su padre
-     */
-    boolean isChild(int i);
+	public static Tree<String> parse(String s){
+		return TreeImpl.parse(s);
+	}
 
-    /**
-     * @return Verdadero si el �rbol es nario.
-     */
-    boolean isNary();
+	public static <R> Tree<R> parse(String s, Function<String,R> f){
+		return TreeImpl.parse(s,f);
+	}
 
+	/**
+	 * @return El tipo del �rbol
+	 */
+	TreeType getType();
 
-    E getLabel();
+	/**
+	 * @return Verdadero si el �rbol es vacio.
+	 */
+	boolean isEmpty();
 
-    List<Tree<E>> getChildren();
+	/**
+	 * @return Verdadero si el �rbol es hoja.
+	 */
+	boolean isLeaf();
 
-    Tree<E> getFather();
+	/**
+	 * @param i Un entero
+	 * @return Si this es el hijo i de su padre
+	 */
+	boolean isChild(int i);
 
-    boolean isRoot();
+	/**
+	 * @return Verdadero si el �rbol es nario.
+	 */
+	boolean isNary();
 
-    Tree<E> getChild(int index);
+	E getLabel();
 
-    int getNumOfChildren();
+	List<Tree<E>> getChildren();
 
+	Tree<E> getFather();
 
-    int size();
+	boolean isRoot();
 
+	Tree<E> getChild(int index);
 
-    int getHeight();
+	int getNumOfChildren();
 
-    Tree<E> copy();
+	int size();
 
+	int getHeight();
 
-    <R> Tree<R> map(Function<E, R> f);
+	Tree<E> copy();
 
-    /**
-     * @return Un �rbol que es la imagen especular de this
-     */
-    Tree<E> getReverse();
+	<R> Tree<R> map(Function<E, R> f);
 
-    void toDOT(String file, String titulo);
+	/**
+	 * @return Un �rbol que es la imagen especular de this
+	 */
+	Tree<E> getReverse();
 
-    /**
-     * @return Una lista con el recorrido en preorden.
-     */
-    List<E> getPreOrder();
+	void toDOT(String file, String titulo);
 
-    /**
-     * @return Una lista con el recorrido en postorden
-     */
-    List<E> getPostOrder();
+	/**
+	 * @return Una lista con el recorrido en preorden.
+	 */
+	List<E> getPreOrder();
 
-    /**
-     * @param k Posici�n de inserci�n de la etiqueta
-     * @return Una lista con el recorrido en inorden.
-     * @post La etiqueta se insertar� en al posici�n min(k,nh). Si k = 0 resulta el recorrido en preorden y si
-     * <p>
-     * k &ge; nh en postorden.
-     */
-    List<E> getInOrder(int k);
+	/**
+	 * @return Una lista con el recorrido en postorden
+	 */
+	List<E> getPostOrder();
 
-    /**
-     * @return Una lista con los �rboles por niveles. Versi�n iterativa
-     */
-    List<Tree<E>> getByLevel();
+	/**
+	 * @post La etiqueta se insertar� en al posici�n min(k,nh). Si k = 0 resulta el recorrido en preorden y si
+	 * k &ge; nh en postorden.
+	 * @param k Posici�n de inserci�n de la etiqueta
+	 * @return Una lista con el recorrido en inorden.
+	 */
+	List<E> getInOrder(int k);
 
-    /**
-     * @return Una lista con las etiquetas por niveles. Versi�n iterativa
-     */
-    List<E> getLabelByLevel();
+	/**
+	 * @return Una lista con los �rboles por niveles. Versi�n iterativa
+	 */
+	List<Tree<E>> getByLevel();
 
-    /**
-     * @param level Los arboles de un nivel dado
-     * @return Los arboles del siguiente nivel
-     */
-    List<Tree<E>> getNextLevel(List<Tree<E>> level);
+	/**
+	 * @return Una lista con las etiquetas por niveles. Versi�n iterativa
+	 */
+	List<E> getLabelByLevel();
 
-    /**
-     * @param n Un entero
-     * @return Los arboles del nivel n
-     */
-    List<Tree<E>> getLevel(Integer n);
+	/**
+	 * @param level Los arboles de un nivel dado
+	 * @return Los arboles del siguiente nivel
+	 */
+	List<Tree<E>> getNextLevel(List<Tree<E>> level);
 
-    /**
-     * @param root La raiz del �rbol d�nde t es un subarbol
-     * @return La profundidad de t en root o -1 si no est�
-     */
-    int getDepth(Tree<E> root);
+	/**
+	 * @param n Un entero
+	 * @return Los arboles del nivel n
+	 */
+	List<Tree<E>> getLevel(Integer n);
 
-    String toString();
+	/**
+	 * @param root La raiz del �rbol d�nde t es un subarbol
+	 * @return La profundidad de t en root o -1 si no est�
+	 */
+	int getDepth(Tree<E> root);
 
-    int hashCode();
+	String toString();
 
-    boolean equals(Object obj);
+	int hashCode();
 
-    Stream<Tree<E>> stream();
+	boolean equals(Object obj);
 
-    /**
-     * @return Una vista de tipo L del �rbol nario
-     */
-    ViewL<Tree<E>, E> viewL();
+	Stream<Tree<E>> stream();
 
-    Iterator<TreeLevel<E>> byLevel();
+	/**
+	 * @return Una vista de tipo L del �rbol nario
+	 */
+	ViewL<Tree<E>,E> viewL();
 
-    void toDot(String file);
+	Iterator<TreeLevel<E>> byLevel();
 
-    enum TreeType {Empty, Leaf, Nary}
+	void toDot(String file);
 
-    record TreeLevel<E>(Integer level, Tree<E> tree) {
-        public static <R> TreeLevel<R> of(Integer level, Tree<R> tree) {
-            return new TreeLevel<>(level, tree);
-        }
-
-        @Override
-        public String toString() {
-            return String.format("(%d,%s)", this.level, this.tree);
-        }
-    }
+	public static record TreeLevel<E>(Integer level, Tree<E> tree){
+		public static <R> TreeLevel<R> of(Integer level, Tree<R> tree){
+			return new TreeLevel<R>(level,tree);
+		}
+		@Override
+		public String toString() {
+			return String.format("(%d,%s)",this.level,this.tree);
+		}
+	}
 }

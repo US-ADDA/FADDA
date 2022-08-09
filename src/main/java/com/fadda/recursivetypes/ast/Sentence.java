@@ -5,8 +5,7 @@ import java.util.Map;
 
 public interface Sentence {
 
-    String name();
-
-    void toDot(PrintStream file, Map<Object, Integer> map);
+	String name();
+	void toDot(PrintStream file, Map<Object,Integer> map);
 
 }
