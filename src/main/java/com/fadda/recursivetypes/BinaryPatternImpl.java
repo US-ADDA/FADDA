@@ -151,11 +151,6 @@ public class BinaryPatternImpl<E> implements BinaryPattern<E> {
         return r;
     }
 
-    public static void main(String[] args) {
-
-
-    }
-
     @Override
     public boolean isEmpty() {
         return type.equals(PatternType.Empty);
@@ -212,7 +207,7 @@ public class BinaryPatternImpl<E> implements BinaryPattern<E> {
 
     @Override
     public String toString() {
-        String r = switch (this.getType()) {
+        return switch (this.getType()) {
             case Empty -> "_";
             case Leaf -> getLabel().toString();
             case Binary -> getLabel().toString() +
@@ -221,12 +216,11 @@ public class BinaryPatternImpl<E> implements BinaryPattern<E> {
                     "(" + this.getLeft().toString() + "," + this.getRight().toString() + ")";
             case Variable -> getVariable_Name();
         };
-        return r;
     }
 
     @Override
     public <R> BinaryPattern<R> map(Function<E, R> f) {
-        BinaryPattern<R> r = switch (this.getType()) {
+        return switch (this.getType()) {
             case Empty -> BinaryPattern.empty();
             case Leaf -> BinaryPattern.leaf(f.apply(this.getLabel()));
             case Variable -> BinaryPattern.variable(this.getVariable_Name());
@@ -235,12 +229,11 @@ public class BinaryPatternImpl<E> implements BinaryPattern<E> {
             case Binary_Variable ->
                     BinaryPattern.binary_variable(this.getVariable_Name(), this.getLeft().map(f), this.getRight().map(f));
         };
-        return r;
     }
 
     @Override
     public BinaryTree<E> toBinaryTree(Matches<E> matches) {
-        BinaryTree<E> r = switch (this.getType()) {
+        return switch (this.getType()) {
             case Empty -> BinaryTree.empty();
             case Leaf -> BinaryTree.leaf(this.getLabel());
             case Variable -> matches.treeMatches.get(this.getVariable_Name());
@@ -251,7 +244,6 @@ public class BinaryPatternImpl<E> implements BinaryPattern<E> {
                     this.getLeft().toBinaryTree(matches),
                     this.getRight().toBinaryTree(matches));
         };
-        return r;
     }
 
     public static class Matches<E> {

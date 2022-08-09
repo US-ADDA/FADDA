@@ -24,24 +24,24 @@ import java.util.stream.Stream;
 public class Matrix<E> {
 
 
-    public final E[][] datos;
+    public final E[][] data;
     protected int nf;
     protected int nc;
     protected int fv;
     protected int cv;
 
-    protected Matrix(E[][] datos) {
+    protected Matrix(E[][] data) {
         super();
-        this.datos = datos;
-        this.nf = datos.length;
-        this.nc = datos[0].length;
+        this.data = data;
+        this.nf = data.length;
+        this.nc = data[0].length;
         this.fv = 0;
         this.cv = 0;
     }
 
-    private Matrix(E[][] datos, Integer nf, Integer nc, Integer fv, Integer cv) {
+    private Matrix(E[][] data, Integer nf, Integer nc, Integer fv, Integer cv) {
         super();
-        this.datos = datos;
+        this.data = data;
         Preconditions.checkArgument(nf >= 0 && nc >= 0, String.format("Numero de filas menor que cero nf = %d, nc = %d", nf, nc));
         this.nf = nf;
         this.nc = nc;
@@ -66,6 +66,10 @@ public class Matrix<E> {
 
     public static <E> Matrix<E> of(E[][] datos) {
         return new Matrix<>(datos);
+    }
+
+    public static <E> Matrix<E> of(List<List<E>> datos) {
+        return new Matrix<>(datos.stream().map(List::toArray).toArray(E[][]::new));
     }
 
 
@@ -160,7 +164,7 @@ public class Matrix<E> {
     }
 
     public E get(Integer f, Integer c) {
-        return this.datos[this.fv + f][this.cv + c];
+        return this.data[this.fv + f][this.cv + c];
     }
 
     public E get(IntPair p) {
@@ -169,7 +173,7 @@ public class Matrix<E> {
 
 
     public void set(Integer f, Integer c, E value) {
-        this.datos[this.fv + f][this.cv + c] = value;
+        this.data[this.fv + f][this.cv + c] = value;
     }
 
     public void set(IntPair p, E value) {
@@ -230,7 +234,7 @@ public class Matrix<E> {
 
     public Matrix<E> view(Integer fMin, Integer cMin, Integer nf, Integer nc) {
         Preconditions.checkArgument(nf >= 0 && nc >= 0, String.format("Numero de filas menor que cero nf = %d, nc = %d", nf, nc));
-        Matrix<E> r = of(this.datos);
+        Matrix<E> r = of(this.data);
         r.fv = this.fv + fMin;
         r.nf = nf;
         r.cv = this.cv + cMin;
@@ -243,7 +247,7 @@ public class Matrix<E> {
 
         int nf = this.nf / 2;
         int nc = this.nc / 2;
-        Matrix<E> r = of(this.datos);
+        Matrix<E> r = of(this.data);
         switch (nv) {
             case 0 -> r = view(0, 0, nf, nc);
             case 1 -> r = view(0, nc, nf, this.nc - nc);
@@ -289,7 +293,7 @@ public class Matrix<E> {
     }
 
     public Matrix<E> copy() {
-        return new Matrix<>(this.datos, this.nf, this.nc, this.fv, this.cv);
+        return new Matrix<>(this.data, this.nf, this.nc, this.fv, this.cv);
     }
 
     public void copy(Matrix<E> r) {
