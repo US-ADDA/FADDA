@@ -69,7 +69,7 @@ public class Matrix<E> {
     }
 
     public static <E> Matrix<E> of(List<List<E>> datos) {
-        return new Matrix<>(datos.stream().map(List::toArray).toArray(E[][]::new));
+        return new Matrix<>((E[][]) datos.stream().map(List::toArray).toArray());
     }
 
 
