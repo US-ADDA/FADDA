@@ -1,7 +1,9 @@
-# FADDA
-Funciones de ADDA, copiado del ParteComún de MIguel Toro, pero ahora funciona con Java 11.
+[![](https://jitpack.io/v/alesanfe/FADDA.svg)](https://jitpack.io/#alesanfe/FADDA)
 
-## NO UTILIZAR CON APIS (NO FUFA BIEN).
+# FADDA
+Funciones de ADDA para poder hacer todas las prácticas de 21-22.
+
+## NO UTILIZAR CON APIS EL JAR (NO FUFA BIEN).
 
 Para descargar el jar:
-- [FADDA.jar](https://github.com/alesanfe/FADDA/raw/main/out/artifacts/ParteComun_jar/FADDA.jar)
+- [FADDA.jar](https://github.com/alesanfe/FADDA/releases/download/0.9.5/FADDA.jar)
