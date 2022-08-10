@@ -17,11 +17,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import com.fadda.common.extension.List2;
-import com.fadda.common.tuples.pair.Pair;
 import com.fadda.common.Preconditions;
 import com.fadda.common.Printers;
-import com.fadda.common.extension.Files2;
-import com.fadda.common.extension.String2;
 import com.fadda.common.views.View2E;
 import com.fadda.streams.Stream2;
 import com.fadda.recursivetypes.BinaryPatternImpl.Matches;
@@ -465,6 +462,20 @@ public class BinaryTreeImpl<E> implements MutableBinaryTree<E> {
 		p.println("}");
 		p.close();
 	}
+
+	@Override
+	public List<E> getPath() {
+		return getPath(this);
+	}
+
+	private List<E> getPath(BinaryTree<E> tree) {
+		if (tree.isRoot()) return List2.of(tree.getLabel());
+		List<E> r = getPath(tree.getFather());
+		r.add(tree.getLabel());
+		return r;
+	}
+
+
 
 	private void toDot(PrintStream p, Map<Object, Integer> map) {
 		switch(this.getType()) {

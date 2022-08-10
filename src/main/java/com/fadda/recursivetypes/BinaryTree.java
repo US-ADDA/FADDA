@@ -232,4 +232,6 @@ public interface BinaryTree<E> extends Iterable<BinaryTree<E>> {
 		}
 	}
 
+	List<E> getPath();
+
 }

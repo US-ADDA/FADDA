@@ -173,4 +173,6 @@ public static Tree<Object> empty = new TreeImpl<Object>();
 			return String.format("(%d,%s)",this.level,this.tree);
 		}
 	}
+
+	List<E> getPath();
 }

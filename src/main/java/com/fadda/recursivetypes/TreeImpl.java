@@ -582,6 +582,18 @@ public class TreeImpl<E> implements MutableTree<E> {
 		p.close();
 	}
 
+	@Override
+	public List<E> getPath() {
+		return getPath(this);
+	}
+
+	private List<E> getPath(Tree<E> tree) {
+		if (tree.isRoot()) return List2.of(tree.getLabel());
+		List<E> r = getPath(tree.getFather());
+		r.add(tree.getLabel());
+		return r;
+	}
+
 	private void toDot(PrintStream p, Map<Object, Integer> map) {
 		switch(this.getType()) {
 		case Nary:
