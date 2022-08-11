@@ -79,4 +79,19 @@ public class String2 {
                 .collect(Collectors.joining("\n   ", titulo + " = {\n   ", "\n}"));
     }
 
+    /**
+     * Método que permite saber si una palabra es palíndroma.
+     *
+     * @param word la palabra que queremos saber si es palíndroma.
+     * @return {@code true} si la palabra es palíndroma, {@code false} en caso contrario.
+     */
+    public static Boolean isPalindrome(String word) {
+        for (int i = 0; i <= word.length() / 2; i++) {
+            Character left = word.charAt(i);
+            Character right = word.charAt(word.length() - 1 - i);
+            if (!left.equals(right)) return false;
+        }
+        return true;
+    }
+
 }

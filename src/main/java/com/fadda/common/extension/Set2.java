@@ -98,13 +98,7 @@ public class Set2 {
      * @return el conjunto con la palabra añadida (si es palíndroma) o no.
      */
     public static Set<String> addIfPalindrome(String word, Set<String> set) {
-        if (set.contains(word)) return set;
-        for (int i = 0; i <= word.length() / 2; i++) {
-            Character left = word.charAt(i);
-            Character right = word.charAt(word.length() - 1 - i);
-            if (!left.equals(right)) return set;
-        }
-        set.add(word);
+        if (String2.isPalindrome(word)) set.add(word);
         return set;
     }
 
