@@ -1,5 +1,6 @@
 com\fadda\common\tuples\pair\DoublePair.class
 com\fadda\common\extension\Files2.class
+com\fadda\prueba.class
 com\fadda\common\collections\IntegerSet.class
 com\fadda\math\Math2.class
 com\fadda\basictypes\HashTable$EntryTable.class
