@@ -8,8 +8,15 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public record LargeInteger(Boolean positive, List<Long> digits) implements Comparable<LargeInteger> {
+public class LargeInteger implements Comparable<LargeInteger>   {
+    private final Boolean positive;
+    private final List<Long> digits;
     private static final Long base = 10L;
+
+    public LargeInteger(boolean positive, List<Long> digits) {
+        this.positive = positive;
+        this.digits = digits;
+    }
 
 
     public static LargeInteger of(String s) {
@@ -62,6 +69,7 @@ public record LargeInteger(Boolean positive, List<Long> digits) implements Compa
         return LargeInteger.ofLong(r);
     }
 
+
     public static LargeInteger minus(LargeInteger x, LargeInteger y) {
         boolean positive = true;
         if (x.compareTo(y) < 0) {
@@ -70,7 +78,7 @@ public record LargeInteger(Boolean positive, List<Long> digits) implements Compa
             y = a;
             positive = false;
         }
-        if (Boolean.TRUE.equals(y.isZero())) return LargeInteger.ofLong(positive, x.digits());
+        if (Boolean.TRUE.equals(y.isZero())) return LargeInteger.ofLong(positive, x.digits);
         Integer n1 = x.size();
         Integer n2 = y.size();
         if (n1 < n2) x = x.completeZerosLeft(n2);
@@ -111,10 +119,10 @@ public record LargeInteger(Boolean positive, List<Long> digits) implements Compa
         else {
             int k = n / 2;
             int m = n - k;
-            LargeInteger x1 = LargeInteger.ofLong(x.digits().subList(0, k));
-            LargeInteger x0 = LargeInteger.ofLong(x.digits().subList(k, n));
-            LargeInteger y1 = LargeInteger.ofLong(y.digits().subList(0, k));
-            LargeInteger y0 = LargeInteger.ofLong(y.digits().subList(k, n));
+            LargeInteger x1 = LargeInteger.ofLong(x.digits.subList(0, k));
+            LargeInteger x0 = LargeInteger.ofLong(x.digits.subList(k, n));
+            LargeInteger y1 = LargeInteger.ofLong(y.digits.subList(0, k));
+            LargeInteger y0 = LargeInteger.ofLong(y.digits.subList(k, n));
             LargeInteger z2 = x1.multiply(y1);
             LargeInteger z0 = x0.multiply(y0);
             LargeInteger z1 = x1.sum(x0).multiply(y1.sum(y0)).minus(z2.sum(z0));
@@ -143,17 +151,17 @@ public record LargeInteger(Boolean positive, List<Long> digits) implements Compa
     }
 
     public Long digit(int i) {
-        return this.digits().get(i);
+        return this.digits.get(i);
     }
 
     public Boolean isZero() {
-        return this.digits().stream().allMatch(e -> e.equals(0L));
+        return this.digits.stream().allMatch(e -> e.equals(0L));
     }
 
 
     public Boolean isOne() {
         LargeInteger z = this.removeZerosLeft();
-        return z.positive() && z.digits().stream().allMatch(e -> e.equals(1L));
+        return z.positive && z.digits.stream().allMatch(e -> e.equals(1L));
     }
 
 
@@ -165,7 +173,7 @@ public record LargeInteger(Boolean positive, List<Long> digits) implements Compa
     }
 
     public LargeInteger removeZerosLeft() {
-        List<Long> ls = this.digits().stream().dropWhile(e -> e.equals(0L)).collect(Collectors.toList());
+        List<Long> ls = this.digits.stream().dropWhile(e -> e.equals(0L)).collect(Collectors.toList());
         return LargeInteger.ofLong(ls);
     }
 
@@ -196,7 +204,7 @@ public record LargeInteger(Boolean positive, List<Long> digits) implements Compa
         int r;
         if (d == -1) r = 0;
 
-        else r = x.digits().get(d) < y.digits().get(d) ? -1 : 1;
+        else r = x.digits.get(d) < y.digits.get(d) ? -1 : 1;
         return r;
     }
 
@@ -222,6 +230,4 @@ public record LargeInteger(Boolean positive, List<Long> digits) implements Compa
         LargeInteger r = this.removeZerosLeft();
         return (Boolean.TRUE.equals(r.positive) ? "" : "-") + r.digits.stream().map(Object::toString).collect(Collectors.joining(""));
     }
-
-
 }

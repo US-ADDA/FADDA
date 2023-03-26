@@ -4,10 +4,15 @@ import com.fadda.common.extension.List2;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class Preconditions {
 
     private Preconditions() {
+    }
+
+    public static <T> boolean isNullOrValid(T object, Predicate<T> valid) {
+        return object == null || valid.test(object);
     }
 
     /**
